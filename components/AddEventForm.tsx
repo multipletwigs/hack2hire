@@ -31,8 +31,6 @@ const submitEvent = async (event: any) => {
     updatedAt: new Date(),
   };
 
-  console.log(event);
-
   const res = await fetch("/api/event", {
     method: "POST",
     headers: {
@@ -105,12 +103,12 @@ const AddEventForm = () => {
             placeholder="Select an NGO host event"
             name={"ngoId"}
             onChange={(e) => {
-              setEvent({ ...event, ngoId: parseInt(e.target.value) });
+              setEvent({ ...event, NGOId: parseInt(e.target.value) });
             }}
           >
             {setNGOs !== undefined
-              ? setNGOs.map((ngo: any) => {
-                  return <option value={ngo.id}>{ngo.NGO_name}</option>;
+              ? setNGOs.map((ngo: any, idx: number) => {
+                  return <option key={idx} value={ngo.id}>{ngo.NGO_name}</option>;
                 })
               : null}
           </Select>
