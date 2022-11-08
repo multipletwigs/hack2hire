@@ -1,25 +1,39 @@
 import { useEffect } from "react"
 
 
-// test_event_data = {
-//   name: body.id,
-//   startAt: body.startAt,
-//   endAt: body.endAt,
-//   location: body.location,
-//   description: body.description,
-//   creatorId: body.creatorId,
-//   Activity: body.activities,
-//   NGOforEvent: body.ngos,
-//   UserAttendingEvent: body.attending_users
-// }
+const data_to_send = {
+  name: "test event",
+  startAt: new Date(),
+  endAt: new Date(),
+  location: "melbourne",
+  description: "no desc",
+  creatorId: 0,
+  Activity: [
+    {
+      name: "test-activity1",
+      desc: "-"
+    },
+    {
+      name: "test-activity2",
+      desc: "-"
+    },
+  ],
+  NGOforEvent: [
+
+  ],
+  UserAttendingEvent: [
+
+  ]
+}
 
 const fetching = async () => {
   const response = await fetch("/api/event", {
     // NOTE: change HTTP methods here
-    method: "GET",
+    method: "POST",
     headers:{
       "Content-type": "application/json",
-    }
+    },
+    body: JSON.stringify(data_to_send)
   })
   console.log(response);
   return response.json();
