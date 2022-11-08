@@ -6,7 +6,7 @@ import Container from '../../layouts/Container'
 import { BiArrowBack } from 'react-icons/bi'
 import AddEventForm from '../../components/AddEventForm'
 
-const addEvent = () => {
+const AddEvent = () => {
   const router = useRouter(); 
   return (
     <Container>
@@ -20,4 +20,4 @@ const addEvent = () => {
   )
 }
 
-export default addEvent
+export default AddEvent
