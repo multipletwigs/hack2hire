@@ -22,6 +22,7 @@ export default async function handler(req: NextApiRequest,res: NextApiResponse) 
   else if (req.method == "POST"){
     try {
       const body: any = req.body;
+      console.log(body)
       const response: Event = await prisma.event.create({
         data:{
           name: body.name,

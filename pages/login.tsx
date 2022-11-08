@@ -28,8 +28,8 @@ const login = () => {
           }}
         >
           {allUserData ? (
-            allUserData.map((user: any) => {
-              return <option value={JSON.stringify(user)}>{user.name}</option>;
+            allUserData.map((user: any, idx) => {
+              return <option value={JSON.stringify(user)} key={idx}>{user.name}</option>;
             })
           ) : (
             <Box>Test</Box>
