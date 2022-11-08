@@ -35,8 +35,8 @@ const AddActivityForm = (props: any) => {
             Add an Activity
           </Button>
         </Flex>
-        {activities.map((act: any) => {
-          return <Box>{act.name}</Box>;
+        {activities.map((act: any, idx:number) => {
+          return <Box key={idx}>{act.name}</Box>;
         })}
         <FormControl>
           <SimpleGrid minChildWidth={"400px"} gap="5">
