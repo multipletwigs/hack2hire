@@ -42,7 +42,7 @@ const NavDrawer = (props: DrawerProps) => {
           <DrawerCloseButton />
           <DrawerHeader>Navigation</DrawerHeader>
           <DrawerBody>
-            <Box >
+            <Box>
               <LinkComp href="/event" name="Events"/>
               <LinkComp href="/NGO" name="NGOs"/>
             </Box>

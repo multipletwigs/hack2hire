@@ -1,6 +1,5 @@
 import {
   Avatar,
-  AvatarBadge,
   Box,
   Button,
   Drawer,
@@ -9,10 +8,7 @@ import {
   DrawerContent,
   DrawerFooter,
   DrawerOverlay,
-  Flex,
-  HStack,
   IconButton,
-  Input,
   Select,
   VStack,
 } from "@chakra-ui/react";
@@ -21,6 +17,7 @@ import { BsFillPersonLinesFill } from "react-icons/bs";
 import { Role, User } from "prisma/prisma-client";
 import { AllUserContext } from "../context/UserContext";
 import { ActiveUserContext } from "../context/ActiveUserContext";
+import { useRouter } from "next/router";
 
 export interface DrawerProps {
   isOpen: boolean;
@@ -35,8 +32,8 @@ interface ProfileDrawerProps extends DrawerProps {
 }
 
 const ProfileDrawer = (props: DrawerProps) => {
-  const allUserData = useContext(AllUserContext);
   const ActiveUser = useContext(ActiveUserContext);
+  const router = useRouter(); 
   return (
     <>
       <IconButton
@@ -57,28 +54,13 @@ const ProfileDrawer = (props: DrawerProps) => {
                 bgColor={"blue.400"}
               />
               <Box>Current active: {ActiveUser?.activeUser.name}</Box>
-              <Select
-                onChange={(event) => {
-                  ActiveUser?.setActiveUser({
-                    activeUser: JSON.parse(event.target.value),
-                    setActiveUser: ActiveUser?.setActiveUser,
-                  });
-                }}
-              >
-                {allUserData ? (
-                  allUserData.map((user: User) => {
-                    return (
-                      <option value={JSON.stringify(user)}>{user.name}</option>
-                    );
-                  })
-                ) : (
-                  <Box>Test</Box>
-                )}
-              </Select>
             </VStack>
           </DrawerBody>
           <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={props.onClose}>
+            <Button variant="outline" mr={3} onClick={() =>{
+              props.onClose() 
+              router.push('/login')
+            }}>
               Logout
             </Button>
           </DrawerFooter>

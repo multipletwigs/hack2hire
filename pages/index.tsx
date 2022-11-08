@@ -5,7 +5,7 @@ export default function index() {
   const router = useRouter()
   return (
     useEffect(() => {
-      router.push("/event")
+      router.push("/login")
     })
   )
 }
