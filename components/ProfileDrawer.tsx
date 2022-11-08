@@ -1,5 +1,7 @@
 import {
-    Box,
+  Avatar,
+  AvatarBadge,
+  Box,
   Button,
   Drawer,
   DrawerBody,
@@ -7,12 +9,18 @@ import {
   DrawerContent,
   DrawerFooter,
   DrawerOverlay,
+  Flex,
+  HStack,
   IconButton,
   Input,
+  Select,
+  VStack,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useContext } from "react";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { Role } from "prisma/prisma-client";
+import { AllUserContext } from "../context/UserContext";
+import { ActiveUserContext } from "../context/ActiveUserContext";
 
 export interface DrawerProps {
   isOpen: boolean;
@@ -27,6 +35,8 @@ interface ProfileDrawerProps extends DrawerProps {
 }
 
 const ProfileDrawer = (props: DrawerProps) => {
+  const allUserData = useContext(AllUserContext);
+  const ActiveUser = useContext(ActiveUserContext);
   return (
     <>
       <IconButton
@@ -39,7 +49,27 @@ const ProfileDrawer = (props: DrawerProps) => {
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerBody>
-            <Box>Profile</Box>
+            <VStack>
+              <Avatar
+                mt="10"
+                size="2xl"
+                name="Dell Staff"
+                bgColor={"blue.400"}
+              />
+              <Box>Current active: {ActiveUser?.activeUser.name}</Box>
+              <Select onChange={(val) => {
+                console.log(val)
+
+              }}>
+              {allUserData ? (
+                allUserData.map((user: any) => {
+                  return <option value={user}>{user.name}</option>;
+                })
+              ) : (
+                <Box>Test</Box>
+              )}
+              </Select>
+            </VStack>
           </DrawerBody>
 
           <DrawerFooter>
