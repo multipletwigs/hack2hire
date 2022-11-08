@@ -16,6 +16,7 @@ export default async function handler(req: NextApiRequest,res: NextApiResponse) 
       res.status(405).json({message: "GET method error in api/ngo", });
     }
   }
+  
   else{
     res.status(405).json({message: "HTTP method not allowed in api/ngo"});
   }

@@ -10,6 +10,7 @@ import { ActiveUserContext } from "../context/ActiveUserContext";
 import AddActivityForm from "./AddActivityForm";
 import { EventType, formFields } from "./FormTypes/AddEventFields";
 
+// get all NGOs
 const getNGOs = async () => {
   const res = await fetch("/api/ngo", {
     method: "GET",
@@ -20,6 +21,7 @@ const getNGOs = async () => {
   return res.json();
 };
 
+// callback for on submit event button
 const submitEvent = async (event: any) => {
   event = {
     ...event,
@@ -41,6 +43,7 @@ const submitEvent = async (event: any) => {
   return res;
 };
 
+// NOTE: the UI component for the admin adding an event 
 const AddEventForm = () => {
   const [event, setEvent] = useState<EventType | {}>({});
   const [useActivities, setActivities] = useState<any>([]);
