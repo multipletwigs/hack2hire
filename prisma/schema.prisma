@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Activity {
+  id                   Int                    @id @default(autoincrement())
+  name                 String
+  description          String
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime
+  eventId              Int
+  Event                Event                  @relation(fields: [eventId], references: [id])
+  UserRegisterActivity UserRegisterActivity[]
+}
+
+model Event {
+  id                 Int                  @id @default(autoincrement())
+  name               String
+  startAt            DateTime
+  endAt              DateTime
+  location           String
+  description        String
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  creatorId          Int
+  User               User                 @relation(fields: [creatorId], references: [id])
+  Activity           Activity[]
+  NGOforEvent        NGOforEvent[]
+  UserAttendingEvent UserAttendingEvent[]
+}
+
+model NGO {
+  id              Int           @id @default(autoincrement())
+  NGO_name        String        @db.VarChar(50)
+  NGO_description String        @db.VarChar(100)
+  NGO_email       String        @db.VarChar(50)
+  NGO_phone       String        @db.VarChar(50)
+  NGOforEvent     NGOforEvent[]
+}
+
+model NGOforEvent {
+  id        Int      @id @default(autoincrement())
+  ngoId     Int
+  eventId   Int
+  createdAt DateTime @default(now())
+  Event     Event    @relation(fields: [eventId], references: [id])
+  NGO       NGO      @relation(fields: [ngoId], references: [id])
+}
+
+model User {
+  id                   Int                    @id @default(autoincrement())
+  email                String                 @unique
+  name                 String
+  createdAt            DateTime               @default(now())
+  role                 Role                   @default(USER)
+  Event                Event[]
+  UserAttendingEvent   UserAttendingEvent[]
+  UserRegisterActivity UserRegisterActivity[]
+}
+
+model UserAttendingEvent {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  eventId   Int
+  createdAt DateTime @default(now())
+  Event     Event    @relation(fields: [eventId], references: [id])
+  User      User     @relation(fields: [userId], references: [id])
+}
+
+model UserRegisterActivity {
+  id           Int      @id @default(autoincrement())
+  userId       Int
+  activityId   Int
+  activityDesc String   @default("Activity Description")
+  createdAt    DateTime @default(now())
+  Activity     Activity @relation(fields: [activityId], references: [id])
+  User         User     @relation(fields: [userId], references: [id])
+}
+
+enum Role {
+  USER
+  ADMIN
+}
