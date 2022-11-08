@@ -1,9 +1,10 @@
-import { Box, HStack, IconButton, Image, Select, Text } from "@chakra-ui/react";
-import { BsFillPersonLinesFill } from "react-icons/bs";
-import { GiHamburgerMenu } from "react-icons/gi";
-import React, { useContext, useEffect } from "react";
+import { Box, HStack, Image, Text, useDisclosure } from "@chakra-ui/react";
+import NavDrawer from "./NavDrawer";
+import ProfileDrawer from "./ProfileDrawer";
 
 const NavBar = () => {
+  const useDiscProfile = useDisclosure();
+  const useDiscNav = useDisclosure();
 
   return (
     <Box as="nav" h="20" bg="white">
@@ -27,14 +28,15 @@ const NavBar = () => {
           </Text>
         </HStack>
         <HStack>
-          <IconButton
-            aria-label={"Open Profile Drawer"}
-            icon={<GiHamburgerMenu />}
+          <ProfileDrawer
+            isOpen={useDiscProfile.isOpen}
+            onOpen={useDiscProfile.onOpen}
+            onClose={useDiscProfile.onClose}
           />
-
-          <IconButton
-            aria-label={"Open Nav Bar Drawer"}
-            icon={<BsFillPersonLinesFill />}
+          <NavDrawer
+            isOpen={useDiscNav.isOpen}
+            onOpen={useDiscNav.onOpen}
+            onClose={useDiscNav.onClose}
           />
         </HStack>
       </Box>
