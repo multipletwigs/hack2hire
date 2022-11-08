@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { BsFillPersonLinesFill } from "react-icons/bs";
-import { Role } from "prisma/prisma-client";
+import { Role, User } from "prisma/prisma-client";
 import { AllUserContext } from "../context/UserContext";
 import { ActiveUserContext } from "../context/ActiveUserContext";
 
@@ -57,21 +57,26 @@ const ProfileDrawer = (props: DrawerProps) => {
                 bgColor={"blue.400"}
               />
               <Box>Current active: {ActiveUser?.activeUser.name}</Box>
-              <Select onChange={(val) => {
-                console.log(val)
-
-              }}>
-              {allUserData ? (
-                allUserData.map((user: any) => {
-                  return <option value={user}>{user.name}</option>;
-                })
-              ) : (
-                <Box>Test</Box>
-              )}
+              <Select
+                onChange={(event) => {
+                  ActiveUser?.setActiveUser({
+                    activeUser: JSON.parse(event.target.value),
+                    setActiveUser: ActiveUser?.setActiveUser,
+                  });
+                }}
+              >
+                {allUserData ? (
+                  allUserData.map((user: User) => {
+                    return (
+                      <option value={JSON.stringify(user)}>{user.name}</option>
+                    );
+                  })
+                ) : (
+                  <Box>Test</Box>
+                )}
               </Select>
             </VStack>
           </DrawerBody>
-
           <DrawerFooter>
             <Button variant="outline" mr={3} onClick={props.onClose}>
               Logout
