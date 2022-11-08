@@ -102,7 +102,7 @@ const AddEventForm = () => {
             placeholder="Select an NGO host event"
             name={"ngoId"}
             onChange={(e) => {
-              setEvent({ ...event, ngoId: parseInt(e.target.value) });
+              setEvent({ ...event, NGOId: parseInt(e.target.value) });
             }}
           >
             {setNGOs !== undefined
