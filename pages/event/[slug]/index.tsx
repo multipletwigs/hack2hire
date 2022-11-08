@@ -15,7 +15,7 @@ const getEvents = async () => {
   return data;
 };
 
-const eventPage = () => {
+const EventPage = () => {
   const router = useRouter();
   const { slug } = router.query; // This is the slug of the event
   const [useEvent, setEvent] = useState<any>();
@@ -41,4 +41,4 @@ const eventPage = () => {
   );
 };
 
-export default eventPage;
+export default EventPage;

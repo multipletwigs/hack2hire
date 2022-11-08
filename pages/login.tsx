@@ -13,7 +13,7 @@ import React, { useContext } from "react";
 import { ActiveUserContext } from "../context/ActiveUserContext";
 import { AllUserContext } from "../context/UserContext";
 
-const login = () => {
+const Login = () => {
   const allUserData = useContext(AllUserContext);
   const ActiveUser = useContext(ActiveUserContext);
   const router = useRouter();
@@ -74,4 +74,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;
