@@ -12,10 +12,10 @@ export default async function handler(req: NextApiRequest,res: NextApiResponse) 
       const response: User[] = await prisma.user.findMany();
       console.log("response at api/event");
       console.log(response);
-      res.status(200).json({message: "fetched users successfully", response: response})
+      res.status(200).json({message: "fetched users successfully", response: response});
     }
     catch(e){
-      res.status(405).json({message: "GET method error in api/user", })
+      res.status(405).json({message: "GET method error in api/user", });
     }
   }
   else{

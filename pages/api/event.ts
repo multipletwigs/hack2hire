@@ -5,6 +5,7 @@ import { Event } from "@prisma/client";
 
 
 export default async function handler(req: NextApiRequest,res: NextApiResponse) {
+  // fetches all events in the db
   if (req.method == "GET") {
     try {
       // res.status(405).json({message: "get method under development" });
@@ -17,6 +18,7 @@ export default async function handler(req: NextApiRequest,res: NextApiResponse) 
       res.status(405).json({message: "GET method error in event api", })
     }
   }
+  // allow an authorized user to make a new event
   else if (req.method == "POST"){
     try {
       const body: any = req.body;
@@ -52,6 +54,7 @@ export default async function handler(req: NextApiRequest,res: NextApiResponse) 
       res.status(405).json({message: "POST method error in event api", });
     }
   }
+  // allow the admin to modify the details of the event
   else if (req.method == "PUT"){
     try{
       const body: any = req.body;
