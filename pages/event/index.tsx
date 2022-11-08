@@ -60,6 +60,9 @@ const EventPage = (props: any) => {
           return <EventCard {...event} key={event.id}></EventCard>;
         })}
       </SimpleGrid>
+      {
+        useEvents.length == 0 ? <Box>No Events</Box> : null
+      }
     </Container>
   );
 };

@@ -29,7 +29,7 @@ const EventCard = (props: CardProps) => {
   const status = upcoming ? (
     <HStack>
       <Tag colorScheme={"yellow"}>Upcoming</Tag>
-      <Tag colorScheme="orange">Starts at {props.startAt}</Tag>
+      <Tag colorScheme="orange">Starts at {startAtFormat}</Tag>
     </HStack>
   ) : ongoing ? (
     <HStack>
