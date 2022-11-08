@@ -3,7 +3,15 @@ import {
   FormHelperText,
   FormLabel,
 } from "@chakra-ui/form-control";
-import { Box, Button, Input, Select, SimpleGrid, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Input,
+  Select,
+  SimpleGrid,
+  Spinner,
+  Text,
+} from "@chakra-ui/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { useContext, useEffect, useState } from "react";
 import { ActiveUserContext } from "../context/ActiveUserContext";
@@ -105,7 +113,11 @@ const AddEventForm = () => {
           >
             {setNGOs !== undefined
               ? setNGOs.map((ngo: any, idx: number) => {
-                  return <option key={idx} value={ngo.id}>{ngo.NGO_name}</option>;
+                  return (
+                    <option key={idx} value={ngo.id}>
+                      {ngo.NGO_name}
+                    </option>
+                  );
                 })
               : null}
           </Select>
@@ -113,18 +125,34 @@ const AddEventForm = () => {
             You may only select one NGO per event for now
           </FormHelperText>
         </FormControl>
-        <Button
-          onClick={() => {
-            mutate(event);
-          }}
-        >
-          Add an Event
-        </Button>
       </Box>
       <AddActivityForm
         setActivities={setActivities}
         activities={useActivities}
       />
+      <Box bg="white" mt="5" p="10">
+        <Text fontSize={"2xl"} fontWeight="700">
+          Confirm Adding Event
+        </Text>
+        <Button
+          colorScheme={"blue"}
+          mt="5"
+          onClick={() => {
+            mutate(event);
+          }}
+          isDisabled={isLoading}
+        >
+          <Box>
+            {isLoading ? (
+              <Box>
+                <Spinner/> <Text>Adding to the database</Text>
+              </Box>
+            ) : (
+              "Add the Event with Activities"
+            )}
+          </Box>
+        </Button>
+      </Box>
     </>
   );
 };

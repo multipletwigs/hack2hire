@@ -2,12 +2,14 @@ import {
   Avatar,
   Box,
   Button,
+  Divider,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
   DrawerFooter,
   DrawerOverlay,
+  HStack,
   IconButton,
   Tag,
   Text,
@@ -58,6 +60,25 @@ const ProfileDrawer = (props: DrawerProps) => {
                 <Text fontSize="2xl">{ActiveUser?.activeUser.name}</Text>
               </Box>
               <Tag fontWeight="bold">{`CURRENTLY LOGGED IN AS ${ActiveUser?.activeUser.role}`}</Tag>
+              <Box w="100%">
+                <Divider my="5"></Divider>
+                <Text fontSize={"lg"} fontWeight="700" textAlign={'left'}>Announcements by Admin</Text>
+                <Text fontWeight="700" textAlign={'left'} color="#A0AEC0">Reminders about events</Text>
+                <Box bg="#F5F6FB" px="5" py="3" mt="3">
+                  <Text fontSize={"md"} fontWeight="700" textAlign={'left'}>Venue Change</Text>
+                  <Text fontSize="sm">The venue for activity 10 has changed to another floor 7.</Text>
+                  <HStack mt="2">
+                    <Tag colorScheme={"red"}>URGENT</Tag><Tag colorScheme={"orange"}>Movie Night</Tag>
+                  </HStack>
+                </Box>
+                <Box bg="#F5F6FB" px="5" py="3" mt="3">
+                  <Text fontSize={"md"} fontWeight="700" textAlign={'left'}>Bring your own Mic</Text>
+                  <Text fontSize="sm">Karaoke place ran out of mic, so please bring your own</Text>
+                  <HStack mt="2">
+                    <Tag colorScheme={"teal"}>MINOR</Tag><Tag colorScheme={"orange"}>Karaoke Night</Tag>
+                  </HStack>
+                </Box>
+              </Box>
             </VStack>
           </DrawerBody>
           <DrawerFooter>

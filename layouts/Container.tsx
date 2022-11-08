@@ -1,12 +1,13 @@
 import { Box, Flex } from "@chakra-ui/react";
 import React from "react";
 import { PageTransition } from "../animations/PageTransition";
+import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 
 const Container = (props: any) => {
   const { children } = props;
   return (
-    <Box as="div" minW="100vw" minH="100vh" bgColor="#F5F6FB">
+    <Box as="div" maxW="100vw" minH="100vh" bgColor="#F5F6FB">
       <NavBar />
       <Flex
         flexDir={"column"}
@@ -18,6 +19,7 @@ const Container = (props: any) => {
       >
         <PageTransition          
         >{children}</PageTransition>
+        <Footer/>
       </Flex>
     </Box>
   );

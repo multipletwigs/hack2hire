@@ -1,7 +1,9 @@
-import { Box, Button, HStack, Tag, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, HStack, IconButton, Tag, Text, useDisclosure, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
 import { ActiveUserContext } from "../context/ActiveUserContext";
+import {TfiAnnouncement} from "react-icons/tfi"
+import AnnoucementModal from "./AnnoucementModal";
 
 interface CardProps {
   NGOId: number;
@@ -17,6 +19,7 @@ interface CardProps {
 }
 
 const EventCard = (props: CardProps) => {
+  const announceDisc = useDisclosure()
   const activeUser = useContext(ActiveUserContext);
   const router = useRouter();
   const { slug } = router.query; // This is the slug of the event
@@ -45,9 +48,13 @@ const EventCard = (props: CardProps) => {
 
   return (
     <Box p="5" bg="white">
-      <Text fontSize={"2xl"} fontWeight="extrabold">
-        {props.name}
-      </Text>
+      <HStack alignContent={'center'} justifyContent={"space-between"}>
+        <Text fontSize={"2xl"} fontWeight="extrabold">
+          {props.name}
+        </Text>
+        {activeUser?.activeUser.role === "ADMIN" ?  <IconButton onClick={announceDisc.onOpen} aria-label={""} icon={<TfiAnnouncement/>}/>: null}
+        <AnnoucementModal {...announceDisc} title={props.name} desc={props.description}/>
+      </HStack>
       <Text fontSize={"md"} color="#A0AEC0" fontWeight={600} mb="2">
         {props.description}
       </Text>
@@ -59,8 +66,7 @@ const EventCard = (props: CardProps) => {
             if (upcoming) {
               router.push("/event/" + props.id);
             } else if (ongoing) {
-              
-            } else if(ended){
+            } else if (ended) {
               router.push(`/event/${props.id}/register`);
             }
           }}

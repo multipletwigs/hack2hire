@@ -6,10 +6,11 @@ import {
   FormHelperText,
   FormLabel,
   Input,
+  OrderedList,
   SimpleGrid,
   Text,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { activityFormFields } from "./FormTypes/AddActivityFields";
 
 const AddActivityForm = (props: any) => {
@@ -29,6 +30,7 @@ const AddActivityForm = (props: any) => {
           <Button
             onClick={() => {
               setActivities([...activities, act]);
+              
             }}
             mb="5"
           >
@@ -36,10 +38,13 @@ const AddActivityForm = (props: any) => {
           </Button>
         </Flex>
         {activities.map((act: any, idx:number) => {
-          return <Box key={idx}>{act.name}</Box>;
+          return <Box key={idx}>
+            <Text fontSize={"xl"} fontWeight="bold">{act.name}</Text>
+            <Text fontSize="lg">{act.description}</Text>
+          </Box>;
         })}
         <FormControl>
-          <SimpleGrid minChildWidth={"400px"} gap="5">
+          <SimpleGrid minChildWidth={"400px"} gap="5" mt="10">
             {activityFormFields.map((field) => {
               return (
                 <Box key={field.name} mb="1">
