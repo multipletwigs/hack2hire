@@ -12,26 +12,28 @@ model Activity {
   name                 String
   description          String
   createdAt            DateTime               @default(now())
-  updatedAt            DateTime
+  updatedAt            DateTime               @updatedAt
   eventId              Int
   Event                Event                  @relation(fields: [eventId], references: [id])
   UserRegisterActivity UserRegisterActivity[]
 }
 
 model Event {
-  id                 Int                  @id @default(autoincrement())
-  name               String
-  startAt            DateTime
-  endAt              DateTime
-  location           String
-  description        String
-  createdAt          DateTime             @default(now())
-  updatedAt          DateTime             @updatedAt
-  creatorId          Int
-  User               User                 @relation(fields: [creatorId], references: [id])
-  Activity           Activity[]
-  NGOforEvent        NGOforEvent[]
-  UserAttendingEvent UserAttendingEvent[]
+  id                  Int                  @id @default(autoincrement())
+  name                String
+  startAt             DateTime
+  endAt               DateTime
+  location            String
+  description         String
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  creatorId           Int
+  creator             User                 @relation(fields: [creatorId], references: [id])
+  Activity            Activity[]
+  NGOId               Int                  
+  NGO                 NGO                  @relation(fields: [NGOId], references: [id])
+  // NGOforEvent         NGOforEvent[]
+  UserAttendingEvent  UserAttendingEvent[]
 }
 
 model NGO {
@@ -40,17 +42,18 @@ model NGO {
   NGO_description String        @db.VarChar(100)
   NGO_email       String        @db.VarChar(50)
   NGO_phone       String        @db.VarChar(50)
-  NGOforEvent     NGOforEvent[]
+  // NGOforEvent     NGOforEvent[]
+  events          Event[]
 }
 
-model NGOforEvent {
-  id        Int      @id @default(autoincrement())
-  ngoId     Int
-  eventId   Int
-  createdAt DateTime @default(now())
-  Event     Event    @relation(fields: [eventId], references: [id])
-  NGO       NGO      @relation(fields: [ngoId], references: [id])
-}
+// model NGOforEvent {
+//   id        Int      @id @default(autoincrement())
+//   ngoId     Int
+//   eventId   Int
+//   createdAt DateTime @default(now())
+//   Event     Event    @relation(fields: [eventId], references: [id])
+//   NGO       NGO      @relation(fields: [ngoId], references: [id])
+// }
 
 model User {
   id                   Int                    @id @default(autoincrement())
