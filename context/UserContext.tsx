@@ -16,7 +16,7 @@ const fetchAllUsers = async () => {
 };
 
 /**
- * useContext behaves differently for next.js file components. 
+ * useContext behaves differently for next.js file components.
  * I will have to create a provider here and then use the provider in the _app.tsx file
  */
 const UserProvider = ({ children }: any) => {
@@ -28,16 +28,15 @@ const UserProvider = ({ children }: any) => {
   });
 
   useEffect(() => {
-    console.log("This ran")
     if (data) {
       const allUserData = data.response as User[];
-      setUsers(allUserData);
+      setUsers(allUserData)
     }
   }, [data]);
 
   return (
     <AllUserContext.Provider value={allUsers}>
-        {children}
+      {children}
     </AllUserContext.Provider>
   );
 };
