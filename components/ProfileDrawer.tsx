@@ -9,13 +9,13 @@ import {
   DrawerFooter,
   DrawerOverlay,
   IconButton,
-  Select,
+  Tag,
+  Text,
   VStack,
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { BsFillPersonLinesFill } from "react-icons/bs";
-import { Role, User } from "prisma/prisma-client";
-import { AllUserContext } from "../context/UserContext";
+import { Role } from "prisma/prisma-client";
 import { ActiveUserContext } from "../context/ActiveUserContext";
 import { useRouter } from "next/router";
 
@@ -53,11 +53,15 @@ const ProfileDrawer = (props: DrawerProps) => {
                 name="Dell Staff"
                 bgColor={"blue.400"}
               />
-              <Box>Current active: {ActiveUser?.activeUser.name}</Box>
+              <Box textAlign={'center'}>
+                <Text fontWeight={700} fontSize="3xl">Welcome!</Text>
+                <Text fontSize="2xl">{ActiveUser?.activeUser.name}</Text>
+              </Box>
+              <Tag fontWeight="bold">{`CURRENTLY LOGGED IN AS ${ActiveUser?.activeUser.role}`}</Tag>
             </VStack>
           </DrawerBody>
           <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={() =>{
+            <Button variant="solid" mr={3} onClick={() =>{
               props.onClose() 
               router.push('/login')
             }}>
