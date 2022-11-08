@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React, { useContext } from "react";
 import { ActiveUserContext } from "../context/ActiveUserContext";
 import {TfiAnnouncement} from "react-icons/tfi"
-import AnnoucementModal from "./AnnoucementModal";
+import AnnoucementModal from "./AnnouncementModal";
 
 interface CardProps {
   NGOId: number;

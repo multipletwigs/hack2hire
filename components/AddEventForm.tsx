@@ -61,6 +61,7 @@ const AddEventForm = () => {
   const { isLoading, mutate } = useMutation({
     mutationKey: ["event"],
     mutationFn: submitEvent,
+    onSuccess: ()=>{}
   });
 
   const handleInputChange = (e: any) => {
