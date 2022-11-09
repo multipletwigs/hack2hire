@@ -1,16 +1,15 @@
-import { Box, Button, IconButton, SimpleGrid } from "@chakra-ui/react";
-import React, { useContext, useEffect } from "react";
+import { Box, Button, SimpleGrid } from "@chakra-ui/react";
+import React, { useEffect } from "react";
 import Header from "../../components/Header";
-import { ActiveUserContext } from "../../context/ActiveUserContext";
 import Container from "../../layouts/Container";
-import { GiHamburgerMenu } from "react-icons/gi";
 import { BsFillPlusCircleFill } from "react-icons/bs";
 import { useQuery } from "@tanstack/react-query";
 import EventCard from "../../components/EventCard";
 import { useRouter } from "next/router";
+import { server } from "..";
 
 const getEvents = async () => {
-  const res = await fetch("/api/event", {
+  const res = await fetch(`${server}/api/event`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
