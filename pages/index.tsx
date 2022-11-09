@@ -8,6 +8,10 @@ export const server = dev ? 'http://localhost:3000' : 'https://hack2hire.vercel.
 
 export default function Index() {
   const router = useRouter()
+
+  useEffect(()=>{
+    console.log(server)
+  })
   return (
     useEffect(() => {
       router.push("/login")
