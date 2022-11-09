@@ -23,7 +23,7 @@ const LinkComp = (props: LinkItem)=>{
     const router = useRouter(); 
     return(
         <Link href={props.href}>
-            <Box fontWeight={router.asPath === props.href ? 700: 300}>{props.name}</Box>
+            <Box fontSize={"2xl"} mb="5" fontWeight={router.asPath === props.href ? 700: 300}>{props.name}</Box>
         </Link>
     )
 }
