@@ -2,7 +2,7 @@ import { Box, Button, HStack, IconButton, Tag, Text, useDisclosure, VStack } fro
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { ActiveUserContext } from "../context/ActiveUserContext";
-import {TfiAnnouncement} from "react-icons/tfi"
+import {TfiAnnouncement, TfiBarChart} from "react-icons/tfi"
 import AnnoucementModal from "./AnnouncementModal";
 import { useQuery } from "@tanstack/react-query";
 
@@ -79,7 +79,11 @@ const EventCard = (props: CardProps) => {
         <Text fontSize={"2xl"} fontWeight="extrabold">
           {props.name}
         </Text>
+        <HStack>
+        {activeUser?.activeUser.role === "ADMIN" ?  <IconButton onClick={announceDisc.onOpen} aria-label={""} icon={<TfiBarChart/>}/>: null}
         {activeUser?.activeUser.role === "ADMIN" ?  <IconButton onClick={announceDisc.onOpen} aria-label={""} icon={<TfiAnnouncement/>}/>: null}
+        <AnnoucementModal {...announceDisc} title={props.name} desc={props.description}/>
+        </HStack>
         <AnnoucementModal {...announceDisc} title={props.name} desc={props.description}/>
       </HStack>
       <Text fontSize={"md"} color="#A0AEC0" fontWeight={600} mb="2">

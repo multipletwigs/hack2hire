@@ -14,19 +14,25 @@ import React from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { DrawerProps } from "./ProfileDrawer";
 
-interface LinkItem{
-    name: string;
-    href: string;
+interface LinkItem {
+  name: string;
+  href: string;
 }
 
-const LinkComp = (props: LinkItem)=>{
-    const router = useRouter(); 
-    return(
-        <Link href={props.href}>
-            <Box fontSize={"2xl"} mb="5" fontWeight={router.asPath === props.href ? 700: 300}>{props.name}</Box>
-        </Link>
-    )
-}
+const LinkComp = (props: LinkItem) => {
+  const router = useRouter();
+  return (
+    <Link href={props.href}>
+      <Box
+        fontSize={"2xl"}
+        mb="5"
+        fontWeight={router.asPath === props.href ? 700 : 300}
+      >
+        {props.name}
+      </Box>
+    </Link>
+  );
+};
 
 const NavDrawer = (props: DrawerProps) => {
   return (
@@ -43,8 +49,8 @@ const NavDrawer = (props: DrawerProps) => {
           <DrawerHeader>Navigation</DrawerHeader>
           <DrawerBody>
             <Box>
-              <LinkComp href="/event" name="Events"/>
-              <LinkComp href="/NGO" name="NGOs"/>
+              <LinkComp href="/event" name="Events" />
+              <LinkComp href="/NGO" name="NGOs" />
             </Box>
           </DrawerBody>
         </DrawerContent>
