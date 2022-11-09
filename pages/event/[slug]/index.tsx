@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Header from "../../../components/Header";
+import UserRegEventForm from "../../../components/UserRegEventForm";
 import Container from "../../../layouts/Container";
 
 const getEvents = async () => {
@@ -37,8 +38,12 @@ const EventPage = () => {
       ) : (
         <Header header={"Loading..."} desc="loading"></Header>
       )}
+      <UserRegEventForm/>
     </Container>
   );
 };
 
 export default EventPage;
+
+
+
