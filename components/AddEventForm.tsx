@@ -15,11 +15,12 @@ import {
 import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { useContext, useEffect, useState } from "react";
 import { ActiveUserContext } from "../context/ActiveUserContext";
+import { server } from "../pages";
 import AddActivityForm from "./AddActivityForm";
 import { EventType, formFields } from "./FormTypes/AddEventFields";
 
 const getNGOs = async () => {
-  const res = await fetch("/api/ngo", {
+  const res = await fetch(`${server}/api/ngo`, {
     method: "GET",
     headers: {
       "Content-type": "application/json",
@@ -37,7 +38,7 @@ const submitEvent = async (event: any) => {
     updatedAt: new Date(),
   };
 
-  const res = await fetch("/api/event", {
+  const res = await fetch(`${server}/api/event`, {
     method: "POST",
     headers: {
       "Content-type": "application/json",

@@ -1,13 +1,14 @@
 import { Button, SimpleGrid, useDisclosure } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useEffect, useState } from "react";
+import { server } from ".";
 import Header from "../components/Header";
 import NGOCard from "../components/NGOCard";
 import { ActiveUserContext } from "../context/ActiveUserContext";
 import Container from "../layouts/Container";
 
 const getAllNGOs = async () => {
-  const res = await fetch("/api/ngo", {
+  const res = await fetch(`${server}/api/ngo`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -17,7 +18,6 @@ const getAllNGOs = async () => {
 };
 
 const NGO = () => {
-  const modalDisc = useDisclosure(); 
   const [useNGOState, setNGOState] = useState<any[]>([]);
   const { data } = useQuery({
     queryKey: ["ngo"],

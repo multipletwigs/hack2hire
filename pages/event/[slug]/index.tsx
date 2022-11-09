@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { server } from "../..";
 import Header from "../../../components/Header";
 import Container from "../../../layouts/Container";
 
 const getEvents = async () => {
-  const res = await fetch("/api/event", {
+  const res = await fetch(`${server}/api/event`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

@@ -1,20 +1,17 @@
 import { Button } from "@chakra-ui/button";
 import {
   Box,
-  Flex,
   Select,
-  Image,
-  Center,
-  Text,
   VStack,
 } from "@chakra-ui/react";
 import { InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect } from "react";
+import { server } from ".";
 import { ActiveUserContext } from "../context/ActiveUserContext";
 
 const fetchAllUsers = async () => {
-  const response: Response = await fetch("http:localhost:3000/api/user", {
+  const response: Response = await fetch(`${server}/api/user`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
