@@ -19,10 +19,7 @@ const getAllNGOs = async () => {
 
 const NGO = () => {
   const [useNGOState, setNGOState] = useState<any[]>([]);
-  const { data } = useQuery({
-    queryKey: ["ngo"],
-    queryFn: getAllNGOs,
-  });
+  const { data } = useQuery({queryKey: ["ngo"], queryFn: getAllNGOs,});
 
   useEffect(()=>{
     if(data){

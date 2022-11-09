@@ -10,7 +10,7 @@ const data_to_send = {
 }
 
 const regUserAct = async () => {
-  const response = await fetch("/api/reg-user-act", {
+  const response = await fetch("/api/user-att-event", {
     method: "POST",
     headers:{
       "Content-type": "application/json",

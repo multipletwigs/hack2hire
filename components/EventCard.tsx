@@ -1,9 +1,10 @@
 import { Box, Button, HStack, IconButton, Tag, Text, useDisclosure, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ActiveUserContext } from "../context/ActiveUserContext";
 import {TfiAnnouncement} from "react-icons/tfi"
 import AnnoucementModal from "./AnnouncementModal";
+import { useQuery } from "@tanstack/react-query";
 
 interface CardProps {
   NGOId: number;
@@ -18,7 +19,30 @@ interface CardProps {
   updatedAt: string;
 }
 
+
+
 const EventCard = (props: CardProps) => {
+  // gets this user's UserAttendingEvent associated with the event prop
+  const getAssociatedUserAttEvent = async () => {
+    const res = await fetch(`/api/user-att-event`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({userId: activeUser?.activeUser.id , eventId: props.id}),
+    });
+    return res.json();
+  };
+
+  const [associatedUserAttEvent, setUserAttEvent] = useState<any[]>([]);
+  const { data } = useQuery({queryKey: ["userattevent"], queryFn: getAssociatedUserAttEvent,});
+
+  useEffect(()=>{
+    if(data){
+      setUserAttEvent(data.response);
+    }
+  }, [data, associatedUserAttEvent])
+
   const announceDisc = useDisclosure()
   const activeUser = useContext(ActiveUserContext);
   const router = useRouter();
@@ -29,6 +53,9 @@ const EventCard = (props: CardProps) => {
   const ongoing =
     new Date(props.startAt) < new Date() && new Date(props.endAt) > new Date();
   const ended = new Date(props.endAt) < new Date();
+
+  const registered = associatedUserAttEvent.length > 0;
+
   const status = upcoming ? (
     <HStack>
       <Tag colorScheme={"yellow"}>Upcoming</Tag>
@@ -70,7 +97,7 @@ const EventCard = (props: CardProps) => {
               router.push(`/event/${props.id}/register`);
             }
           }}
-          disabled={ended}
+          disabled={ended || registered}
         >
           {ended
             ? "Event Ended"
