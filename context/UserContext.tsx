@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { User } from "@prisma/client";
 import React, { createContext, useEffect, useState } from "react";
+import { server } from "../pages";
 
 export const AllUserContext = createContext<User[] | null>(null);
 
 const fetchAllUsers = async () => {
-  const response: Response = await fetch("/api/user", {
+  const response: Response = await fetch(`${server}/api/user`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

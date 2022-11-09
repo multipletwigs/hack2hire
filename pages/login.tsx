@@ -8,17 +8,43 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import { InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { ActiveUserContext } from "../context/ActiveUserContext";
-import { AllUserContext } from "../context/UserContext";
 
-const Login = () => {
-  const allUserData = useContext(AllUserContext);
+const fetchAllUsers = async () => {
+  const response: Response = await fetch("http:localhost:3000/api/user", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  return response.json();
+};
+
+export async function getServerSideProps(context: any) {
+  const res = await fetchAllUsers();
+  return {
+    props: {
+      users: res.response,
+    }, // will be passed to the page component as props
+  }
+}
+
+const Login = ({ users }:InferGetServerSidePropsType<any>) => {
   const ActiveUser = useContext(ActiveUserContext);
+  const [mounted, setMounted] = React.useState(false);
   const router = useRouter();
 
-  return (
+  useEffect(()=>{
+    setMounted(true)
+    console.log(mounted)
+    console.log(users)
+  })
+
+  return ( mounted  && (
     <VStack
       as="div"
       minW="100vw"
@@ -28,14 +54,14 @@ const Login = () => {
     >
       <Box w={{ base: "90%", sm: "90%", md: "40%" }}>
         <Box>
-          <Text color="#007DB8" fontSize={"4xl"} fontWeight="700">
+          <Box color="#007DB8" fontSize={"4xl"} fontWeight="700">
             Dell Event Dashboard
-          </Text>
+          </Box>
         </Box>
-        <Text fontSize="xl" fontWeight={600} justifyContent={"center"} alignItems="center">
+        <Box fontSize="xl" fontWeight={600} justifyContent={"center"} alignItems="center">
           {" "}
           Please Login With Your Dell Account by selecting the wanted account.
-        </Text>
+        </Box>
         <Select
           mt="2%"
           placeholder="Select Account to login"
@@ -47,8 +73,8 @@ const Login = () => {
           }}
         >
           {/* this is the list of users to choose from  */}
-          {allUserData ? (
-            allUserData.map((user: any) => {
+          {users ? (
+            users.map((user: any) => {
               return (
                 <option value={JSON.stringify(user)} key={user.id}>
                   {`Username: ${user.name} Email: ${user.email}`}
@@ -70,7 +96,7 @@ const Login = () => {
           Log into the Dell Event Dashboard
         </Button>
       </Box>
-    </VStack>
+    </VStack>)
   );
 };
 
