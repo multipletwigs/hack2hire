@@ -1,9 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { UserAttendingEvent } from "@prisma/client";
-import { prisma } from "./activity";
+import { PrismaClient, UserAttendingEvent } from "@prisma/client";
 
 export default async function handler(req: NextApiRequest,res: NextApiResponse) {
 
+  const prisma = new PrismaClient()
   if (req.method == "GET"){
     try{
       const body: any = req.body;

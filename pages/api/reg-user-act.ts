@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { UserRegisterActivity } from "@prisma/client";
-import { prisma } from "./activity";
+import { PrismaClient, UserRegisterActivity } from "@prisma/client";
 
 // connectOrCreate:{
 //   where: {
@@ -12,7 +11,7 @@ import { prisma } from "./activity";
 //   },            
 
 export default async function handler(req: NextApiRequest,res: NextApiResponse) {
-
+  const prisma = new PrismaClient()
   if (req.method === "POST"){
     try{
       const body: any = req.body;
