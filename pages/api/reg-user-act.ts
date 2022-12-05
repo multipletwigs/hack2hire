@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../lib/prisma";
 import { UserRegisterActivity } from "@prisma/client";
+import { prisma } from "./activity";
 
 // connectOrCreate:{
 //   where: {

@@ -1,8 +1,10 @@
 // to allow the admin to create more activities within an event
 
 import type { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../lib/prisma";
 import { Activity } from "@prisma/client";
+
+import { PrismaClient } from '@prisma/client'
+export const prisma = new PrismaClient()
 
 export default async function handler(req: NextApiRequest,res: NextApiResponse) {
   if (req.method === "GET"){
