@@ -2,11 +2,10 @@
 
 import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient, User } from "@prisma/client";
-
+import { prisma } from "../../lib/db";
 
 export default async function handler(req: NextApiRequest,res: NextApiResponse) {
 
-  const prisma = new PrismaClient()
   if (req.method == "GET"){
     try{
       const response: User[] = await prisma.user.findMany();

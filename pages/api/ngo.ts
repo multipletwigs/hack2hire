@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { NGO, PrismaClient } from "@prisma/client";
+import { prisma } from "../../lib/db";
 
 export default async function handler(req: NextApiRequest,res: NextApiResponse) {
-  const prisma = new PrismaClient()
   if (req.method == "GET"){
     try{
       const response: NGO[] = await prisma.nGO.findMany();
