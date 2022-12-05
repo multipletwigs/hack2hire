@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest,res: NextApiResponse) 
       res.status(200).json({message: "fetched users successfully", response: response});
     }
     catch(e){
-      res.status(405).json({message: "GET method error in api/user", });
+      res.status(405).json({message: e, });
     }
   }
   else{
