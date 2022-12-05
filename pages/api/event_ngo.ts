@@ -1,7 +1,6 @@
 // gets the NGO(s) associated with an event
 
 import type { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../lib/prisma";
 import { NGO, Event } from "@prisma/client";
 
 export default async function handler(req: NextApiRequest,res: NextApiResponse) {
