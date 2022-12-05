@@ -1,47 +1,24 @@
 import { Button } from "@chakra-ui/button";
-import {
-  Box,
-  Select,
-  VStack,
-} from "@chakra-ui/react";
-import { InferGetServerSidePropsType } from "next";
+import { Box, Select, useToast, VStack } from "@chakra-ui/react";
+import { User } from "@prisma/client";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect } from "react";
-import { server } from ".";
+import React, { useContext } from "react";
+import { useEffect } from "react";
 import { ActiveUserContext } from "../context/ActiveUserContext";
+import { AllUserContext } from "../context/UserContext";
 
-const fetchAllUsers = async () => {
-  const response: Response = await fetch(`${server}/api/user`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  return response.json();
-};
-
-export async function getServerSideProps(context: any) {
-  const res = await fetchAllUsers();
-  return {
-    props: {
-      users: res.response,
-    }, // will be passed to the page component as props
-  }
-}
-
-const Login = ({ users }:InferGetServerSidePropsType<any>) => {
+const Login = () => {
   const ActiveUser = useContext(ActiveUserContext);
-  const [mounted, setMounted] = React.useState(false);
+  const AllActiveUsers = useContext(AllUserContext);
   const router = useRouter();
+  const toast = useToast(); // Dep array should be empty because we want users to only change once.
 
   useEffect(()=>{
-    setMounted(true)
-    console.log(mounted)
-    console.log(users)
-  })
+    // Everytime the login page is loaded, remove an active user. 
+    ActiveUser.setActiveUser(undefined)
+  }, [])
 
-  return ( mounted  && (
+  return (
     <VStack
       as="div"
       minW="100vw"
@@ -55,7 +32,12 @@ const Login = ({ users }:InferGetServerSidePropsType<any>) => {
             Dell Event Dashboard
           </Box>
         </Box>
-        <Box fontSize="xl" fontWeight={600} justifyContent={"center"} alignItems="center">
+        <Box
+          fontSize="xl"
+          fontWeight={600}
+          justifyContent={"center"}
+          alignItems="center"
+        >
           {" "}
           Please Login With Your Dell Account by selecting the wanted account.
         </Box>
@@ -63,37 +45,46 @@ const Login = ({ users }:InferGetServerSidePropsType<any>) => {
           mt="2%"
           placeholder="Select Account to login"
           onChange={(event) => {
-            ActiveUser?.setActiveUser({
-              activeUser: JSON.parse(event.target.value),
-              setActiveUser: ActiveUser?.setActiveUser,
-            });
+            if (event.target.value !== "") {
+              ActiveUser.setActiveUser({
+                activeUser: JSON.parse(event.target.value),
+                setActiveUser: ActiveUser?.setActiveUser,
+              });
+            } else {
+              ActiveUser.setActiveUser(undefined);
+            }
           }}
         >
           {/* this is the list of users to choose from  */}
-          {users ? (
-            users.map((user: any) => {
-              return (
-                <option value={JSON.stringify(user)} key={user.id}>
-                  {`Username: ${user.name} Email: ${user.email}`}
-                </option>
-              );
-            })
-          ) : (
-            <Box>Test</Box>
-          )}
+          {AllActiveUsers.map((user: User) => {
+            return (
+              <option value={JSON.stringify(user)} key={user.id}>
+                {`Username: ${user.name} Email: ${user.email}`}
+              </option>
+            );
+          })}
         </Select>
         <Button
           colorScheme={"blue"}
           mt="2%"
           w="100%"
           onClick={() => {
-            router.push("/event");
+            if (ActiveUser.activeUser) {
+              router.push("/event");
+            } else {
+              toast({
+                title: "Login Error",
+                position: "top", 
+                description: "Please select a user to login",
+                status: "error",             
+              });
+            }
           }}
         >
           Log into the Dell Event Dashboard
         </Button>
       </Box>
-    </VStack>)
+    </VStack>
   );
 };
 

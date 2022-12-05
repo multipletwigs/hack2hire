@@ -34,7 +34,7 @@ const EventPage = () => {
   }, [data, useEvent]);
   return (
     <Container>
-      {useEvent ? (
+      {isLoading ? <div>isloading</div> : useEvent ? (
         <Header header={useEvent.name} desc={useEvent.description}></Header>
       ) : (
         <Header header={"Loading..."} desc="loading"></Header>

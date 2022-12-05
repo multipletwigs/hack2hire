@@ -3,7 +3,7 @@ import { User } from "@prisma/client";
 import React, { createContext, useEffect, useState } from "react";
 import { server } from "../pages";
 
-export const AllUserContext = createContext<User[] | null>(null);
+export const AllUserContext = createContext<User[]>([]);
 
 const fetchAllUsers = async () => {
   const response: Response = await fetch(`${server}/api/user`, {

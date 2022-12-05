@@ -57,9 +57,9 @@ const ProfileDrawer = (props: DrawerProps) => {
               />
               <Box textAlign={'center'}>
                 <Text fontWeight={700} fontSize="3xl">Welcome!</Text>
-                <Text fontSize="2xl">{ActiveUser?.activeUser.name}</Text>
+                <Text fontSize="2xl">{ActiveUser.activeUser?.name}</Text>
               </Box>
-              <Tag fontWeight="bold">{`CURRENTLY LOGGED IN AS ${ActiveUser?.activeUser.role}`}</Tag>
+              <Tag fontWeight="bold">{`CURRENTLY LOGGED IN AS ${ActiveUser.activeUser?.role}`}</Tag>
               <Box w="100%">
                 <Divider my="5"></Divider>
                 <Text fontSize={"lg"} fontWeight="700" textAlign={'left'}>Announcements by Admin</Text>

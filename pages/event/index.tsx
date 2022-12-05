@@ -30,6 +30,7 @@ const EventPage = (props: any) => {
   const { data } = useQuery({
     queryKey: ["events"],
     queryFn: getEvents,
+    refetchInterval:3000,
   });
 
   useEffect(() => {
