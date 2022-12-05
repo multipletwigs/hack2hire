@@ -1,10 +1,10 @@
-// // gets the NGO(s) associated with an event
+// gets the NGO(s) associated with an event
 
-// import type { NextApiRequest, NextApiResponse } from "next";
-// import { prisma } from "../../lib/prisma";
-// import { NGO, Event } from "@prisma/client";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { prisma } from "../../lib/prisma";
+import { NGO, Event } from "@prisma/client";
 
-// export default async function handler(req: NextApiRequest,res: NextApiResponse) {
+export default async function handler(req: NextApiRequest,res: NextApiResponse) {
 //   if (req.method == "GET") {
 //     try {
 //       const eventId: number = parseInt(req.query.eventId as string);
@@ -29,7 +29,7 @@
 
 //   }
 
-// }
+}
 
 
 

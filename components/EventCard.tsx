@@ -29,7 +29,7 @@ const EventCard = (props: CardProps) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({userId: activeUser?.activeUser.id , eventId: props.id}),
+      body: JSON.stringify({userId: activeUser.activeUser?.id , eventId: props.id}),
     });
     return res.json();
   };
@@ -80,8 +80,8 @@ const EventCard = (props: CardProps) => {
           {props.name}
         </Text>
         <HStack>
-        {activeUser?.activeUser.role === "ADMIN" ?  <IconButton onClick={announceDisc.onOpen} aria-label={""} icon={<TfiBarChart/>}/>: null}
-        {activeUser?.activeUser.role === "ADMIN" ?  <IconButton onClick={announceDisc.onOpen} aria-label={""} icon={<TfiAnnouncement/>}/>: null}
+        {activeUser.activeUser?.role === "ADMIN" ?  <IconButton onClick={announceDisc.onOpen} aria-label={""} icon={<TfiBarChart/>}/>: null}
+        {activeUser.activeUser?.role === "ADMIN" ?  <IconButton onClick={announceDisc.onOpen} aria-label={""} icon={<TfiAnnouncement/>}/>: null}
         <AnnoucementModal {...announceDisc} title={props.name} desc={props.description}/>
         </HStack>
         <AnnoucementModal {...announceDisc} title={props.name} desc={props.description}/>
@@ -109,7 +109,7 @@ const EventCard = (props: CardProps) => {
             ? "Check in Activities"
             : "Register Events"}
         </Button>
-        {activeUser?.activeUser.role === "ADMIN" ? (
+        {activeUser.activeUser?.role === "ADMIN" ? (
           <Button w="100%">Edit Event</Button>
         ) : null}
       </VStack>

@@ -74,7 +74,7 @@ const AddEventForm = () => {
       ...event,
       [e.target.name]: e.target.value,
       Activity: useActivities,
-      creatorId: currentActive?.activeUser.id,
+      creatorId: currentActive.activeUser?.id,
     });
   };
 
