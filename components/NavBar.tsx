@@ -14,7 +14,7 @@ const NavBar = () => {
         alignItems={"center"}
         justifyContent={"space-between"}
         mx="auto"
-        w={{ base: "50%", sm: "90%", md: "70%" }}
+        w={{ base: "90%", sm: "90%", md: "70%" }}
       >
         <HStack>
           <Image
