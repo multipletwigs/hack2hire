@@ -44,7 +44,7 @@ const AddActivityForm = (props: any) => {
           </Box>;
         })}
         <FormControl>
-          <SimpleGrid minChildWidth={"400px"} gap="5" mt="10">
+          <SimpleGrid minChildWidth={"200px"} gap="5" mt="10">
             {activityFormFields.map((field) => {
               return (
                 <Box key={field.name} mb="1">

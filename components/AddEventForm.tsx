@@ -91,7 +91,7 @@ const AddEventForm = () => {
           Event Details
         </Text>
         <FormControl>
-          <SimpleGrid minChildWidth={"400px"} gap="5">
+          <SimpleGrid minChildWidth={"200px"} gap="5">
             {formFields.map((field) => {
               return (
                 <Box key={field.name} mb="5">
@@ -100,6 +100,7 @@ const AddEventForm = () => {
                     name={field.name}
                     onChange={handleInputChange}
                     type={field.type}
+                    w="100%"
                   />
                   <FormHelperText>{field.helperText}</FormHelperText>
                 </Box>
