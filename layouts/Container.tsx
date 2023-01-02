@@ -19,9 +19,8 @@ const Container = (props: any) => {
           flexDir={"column"}
           justifyContent={"center"}
           w={{ base: "50%", sm: "90%", md: "70%" }}
-          // minW="100%" minH="100%"
-          mt="5" //margin top
-          mx="auto" //marginX
+          mt="5" 
+          mx="auto"
         >
           <PageTransition>{children}</PageTransition>
           <Footer />
